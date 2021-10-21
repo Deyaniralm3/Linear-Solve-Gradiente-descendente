@@ -1,0 +1,20 @@
+import numpy as np
+
+A_coef = np.array([[2.0, 1.0, -3.0], [5.0, -4.0, 1.0], [1.0, -1.0, -4.0]])
+b_coef = np.array([7.0, -19.0, 4.0])
+
+x_start = np.array([1.0, 1.0, 1.0])
+
+def gradient(x, A, b):
+	element_1 = np.dot(np.transpose(A),np.dot(A, x))
+	element_2 = np.dot(np.transpose(A), b)
+	return element_1 - element_2
+
+
+def linear_solv(A, b, x_start, k=0.1, criteria=0.00001, max_iter=1000):
+    for i in range(max_iter):
+        x_sol = x_start  - k * gradient(x_start, A_coef, b_coef)
+    if abs(np.all(x_sol)) < criteria:
+        return np.dot(A_coef,x_sol)
+    
+print("La solucion viene como :", linear_solv(A_coef, b_coef, x_start))
