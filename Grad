@@ -11,10 +11,13 @@ def gradient(x, A, b):
 	return element_1 - element_2
 
 
-def linear_solv(A, b, x_start, k=0.1, criteria=0.00001, max_iter=1000):
+def linear_solv(A, b, x_sol, k=0.001, criteria=0.0001, max_iter=10000):
     for i in range(max_iter):
-        x_sol = x_start  - k * gradient(x_start, A_coef, b_coef)
-    if abs(np.all(x_sol)) < criteria:
-        return np.dot(A_coef,x_sol)
+        x_sol = x_sol - k * gradient(x_sol, A, b)
+        print (x_sol)
+        btent=np.dot(A,x_sol)
+        error = np.sum(np.abs(btent-b))
+        if error < criteria:
+            return x_sol
     
 print("La solucion viene como :", linear_solv(A_coef, b_coef, x_start))
